@@ -1,64 +1,57 @@
-# n8n Workflow Popularity Analysis
+# n8n Workflow Popularity System
 
-## 📌 Project Overview
+## 📌 Overview
+This project builds a **production-ready system** to identify the **most popular n8n workflows** across multiple platforms using clear and verifiable popularity evidence.
 
-This project analyzes the popularity of **n8n workflows** by collecting data from:
-
-- YouTube (views, likes, comments)
-- Google Trends (search interest)
-
-The goal is to understand which n8n workflows are trending and in demand.
+The system collects data, computes engagement metrics, stores results in a database, and exposes them via a **REST API**, ready for automation using cron jobs.
 
 ---
 
-## 🏗️ Project Architecture
+## 🎯 Objective
+Analyze and rank n8n workflows based on real-world popularity signals such as:
+- Views, likes, and comments
+- Engagement ratios
+- Search interest trends  
+Segmented by **platform** and **country (US, IN)**.
 
-YouTube API / Google Trends  
- ↓  
-Data Fetchers (Python)  
- ↓  
+---
+
+## 📊 Data Sources & Popularity Metrics
+
+### 1️⃣ YouTube (n8n workflow videos)
+Metrics collected:
+- Views
+- Likes
+- Comments
+- like_to_view_ratio = likes / views
+- comment_to_view_ratio = comments / views
+
+**Data Source:** YouTube Data API v3
+
+---
+
+### 2️⃣ Google Search (Trends)
+Metrics collected:
+- Relative search interest
+- Trend strength over time
+
+**Data Source:** Google Trends (pytrends)
+
+---
+
+## 🏗️ System Architecture
+
+External APIs  
+↓  
+Python Data Fetchers  
+↓  
 ETL Pipeline  
- ↓  
+↓  
 SQLite Database  
- ↓  
-Future: FastAPI / Dashboard
+↓  
+FastAPI REST API  
 
 ---
 
 ## 📁 Project Structure
 
-n8n_popularity_project/
-│
-├── src/
-│ ├── database.py # DB connection
-│ ├── models.py # SQLAlchemy models
-│ ├── youtube_fetcher.py # YouTube data fetcher
-│ ├── google_trends_fetcher.py # Google Trends fetcher
-│ ├── pipeline.py # Main pipeline runner
-│
-├── .env # Environment variables
-├── requirements.txt
-├── README.md
-
----
-
-## ⚙️ Technologies Used
-
-- Python
-- YouTube Data API
-- Google Trends (pytrends)
-- SQLAlchemy
-- SQLite
-- VS Code
-
----
-
-## 🔐 Environment Variables
-
-Create a `.env` file and add:
-
-```env
-YOUTUBE_API_KEY=AIzaSyCtSojNpXBdFc44wvGRm7mpaV7dc3kwnMk
-DATABASE_URL=sqlite:///workflows.db
-
-```
